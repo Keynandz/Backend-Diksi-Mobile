@@ -51,19 +51,45 @@ func UploadImage(name string, mading []byte) error {
 }
 
 func GetImageByID(id string) (*models.Image, error) {
-    db := storage.GetDB()
+	db := storage.GetDB()
 
-    sqlStatement := `
+	sqlStatement := `
         SELECT imageid, name, mading FROM mading WHERE imageid = $1
     `
 
-    row := db.QueryRow(sqlStatement, id)
+	row := db.QueryRow(sqlStatement, id)
 
-    image := &models.Image{}
-    err := row.Scan(&image.Id, &image.Name, &image.Mading)
+	image := &models.Image{}
+	err := row.Scan(&image.Id, &image.Name, &image.Mading)
+	if err != nil {
+		return nil, fmt.Errorf("failed to retrieve image: %w", err)
+	}
+
+	return image, nil
+}
+
+func GetImagesByTimestamp(order int) ([]models.Image, error) {
+    db := storage.GetDB()
+
+    sqlStatement := `
+        SELECT imageid, name, mading FROM mading ORDER BY update_at DESC
+    `
+
+    rows, err := db.Query(sqlStatement)
     if err != nil {
-        return nil, fmt.Errorf("failed to retrieve image: %w", err)
+        return nil, fmt.Errorf("failed to retrieve images: %w", err)
+    }
+    defer rows.Close()
+
+    var images []models.Image
+
+    for rows.Next() {
+        var image models.Image
+        if err := rows.Scan(&image.Id, &image.Name, &image.Mading); err != nil {
+            return nil, fmt.Errorf("failed to scan image: %w", err)
+        }
+        images = append(images, image)
     }
 
-    return image, nil
+    return images, nil
 }

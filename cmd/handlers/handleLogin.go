@@ -30,8 +30,9 @@ func LoginAkun(c echo.Context) error {
 
 	session.SetSession(c, "user", strconv.Itoa(user.Id))
 	fmt.Println("Login successful")
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"login":"Login successful",
+		"login":    "Login successful",
 		"username": user.Username,
 	})
 }
