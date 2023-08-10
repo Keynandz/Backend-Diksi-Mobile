@@ -7,3 +7,9 @@ type Akun struct {
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
 }
+
+type Image struct {
+	Id     int    `json:"imageid"`
+	Name   string `json:"name"`
+	Mading []byte `json:"mading"`
+}

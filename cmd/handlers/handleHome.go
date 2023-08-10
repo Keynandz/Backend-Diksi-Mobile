@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"net/http"
-	"go-collab/cmd/repositories"
+	"golang/cmd/repositories"
 
 	"github.com/labstack/echo/v4"
 )

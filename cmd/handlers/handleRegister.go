@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"go-collab/cmd/models"
-	"go-collab/cmd/repositories"
+	"golang/cmd/models"
+	"golang/cmd/repositories"
 	"net/http"
 	"regexp"
 

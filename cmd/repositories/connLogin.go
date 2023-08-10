@@ -2,8 +2,8 @@ package repositories
 
 import (
 	"fmt"
-	"go-collab/cmd/models"
-	"go-collab/cmd/storage"
+	"golang/cmd/models"
+	"golang/cmd/storage"
 )
 
 func GetUserByEmailOrUsername(identifier string) (*models.Akun, error) {
