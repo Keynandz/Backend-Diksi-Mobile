@@ -1,4 +1,4 @@
-module go-collab
+module golang
 
 go 1.20
 

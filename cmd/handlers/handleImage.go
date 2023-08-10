@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"golang/cmd/repositores"
+	"golang/cmd/repositories"
 	"github.com/labstack/echo/v4"
 )
 func GetImage(c echo.Context) error {
@@ -16,5 +16,5 @@ func GetImage(c echo.Context) error {
 }
 
 func UploadImage(c echo.Context) error {
-	
+
 }
