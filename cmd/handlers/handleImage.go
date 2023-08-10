@@ -2,27 +2,44 @@ package handlers
 
 import (
 	"net/http"
+	"io/ioutil"
 
-	"golang/cmd/models"
 	"golang/cmd/repositories"
 	"github.com/labstack/echo/v4"
 )
-func GetImage(c echo.Context) error {
-	images, err := repositories.GetImage()
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err.Error())
-	}
 
-	return c.JSON(http.StatusOK, images)
+func GetImageByID(c echo.Context) error {
+    imageID := c.Param("id")
+    image, err := repositories.GetImageByID(imageID)
+    if err != nil {
+        return c.JSON(http.StatusInternalServerError, err.Error())
+    }
+
+    c.Response().Header().Set("Content-Type", "image/png")
+    c.Response().Write(image.Mading)
+    return nil
 }
 
 func UploadImage(c echo.Context) error {
-    var image models.Image
-    if err := c.Bind(&image); err != nil {
-        return c.JSON(http.StatusBadRequest, "Invalid request payload")
+    file, err := c.FormFile("mading")
+    if err != nil {
+        return c.JSON(http.StatusBadRequest, "Failed to get image file")
     }
 
-    err := repositories.UploadImage(image.Name, image.Mading)
+    src, err := file.Open()
+    if err != nil {
+        return c.JSON(http.StatusInternalServerError, "Failed to open uploaded file")
+    }
+    defer src.Close()
+
+    imageData, err := ioutil.ReadAll(src)
+    if err != nil {
+        return c.JSON(http.StatusInternalServerError, "Failed to read uploaded file")
+    }
+
+    imageName := c.FormValue("name")
+
+    err = repositories.UploadImage(imageName, imageData)
     if err != nil {
         return c.JSON(http.StatusInternalServerError, err.Error())
     }

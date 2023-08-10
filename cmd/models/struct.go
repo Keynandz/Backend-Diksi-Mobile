@@ -9,7 +9,7 @@ type Akun struct {
 }
 
 type Image struct {
-	Id     int    `json:"imageid"`
-	Name   string `json:"name"`
-	Mading []byte `json:"mading"`
+    Id     int    `json:"imageid"`
+    Name   string `json:"name"`
+    Mading []byte `json:"-"`
 }

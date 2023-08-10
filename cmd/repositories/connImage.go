@@ -2,10 +2,11 @@ package repositories
 
 import (
 	"fmt"
-	"golang/cmd/storage"
 	"golang/cmd/models"
+	"golang/cmd/storage"
 
 	_ "database/sql"
+
 	_ "github.com/lib/pq"
 )
 
@@ -13,7 +14,7 @@ func GetImage() ([]models.Image, error) {
 	db := storage.GetDB()
 
 	sqlStatement := `
-		SELECT id, name FROM mading
+		SELECT imageid, name FROM mading
 	`
 
 	rows, err := db.Query(sqlStatement)
@@ -35,15 +36,33 @@ func GetImage() ([]models.Image, error) {
 	return images, nil
 }
 
-func UploadImage(name string, imageData []byte) error {
+func UploadImage(name string, mading []byte) error {
 	db := storage.GetDB()
 
 	sqlStatement := `INSERT INTO mading (name, mading) VALUES ($1, $2)`
 
-	_, err := db.Exec(sqlStatement, name, imageData)
+	_, err := db.Exec(sqlStatement, name, mading)
 	if err != nil {
 		return fmt.Errorf("failed to upload image: %w", err)
 	}
 
 	return nil
+}
+
+func GetImageByID(id string) (*models.Image, error) {
+    db := storage.GetDB()
+
+    sqlStatement := `
+        SELECT imageid, name, mading FROM mading WHERE imageid = $1
+    `
+
+    row := db.QueryRow(sqlStatement, id)
+
+    image := &models.Image{}
+    err := row.Scan(&image.Id, &image.Name, &image.Mading)
+    if err != nil {
+        return nil, fmt.Errorf("failed to retrieve image: %w", err)
+    }
+
+    return image, nil
 }

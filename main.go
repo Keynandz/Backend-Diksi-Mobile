@@ -12,7 +12,7 @@ func main() {
 	e := echo.New()
 	storage.InitDB()
   
-	e.GET("/images", handlers.GetImage)
+	e.GET("/images/:id", handlers.GetImageByID)
 	e.GET("/logout", handlers.LogoutAkun)
 	e.GET("/username", handlers.GetAkunByID)
   
