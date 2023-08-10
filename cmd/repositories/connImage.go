@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"golang/cmd/models"
 	"golang/cmd/storage"
+	"time"
 
 	_ "database/sql"
 
@@ -39,9 +40,9 @@ func GetImage() ([]models.Image, error) {
 func UploadImage(name string, mading []byte) error {
 	db := storage.GetDB()
 
-	sqlStatement := `INSERT INTO mading (name, mading) VALUES ($1, $2)`
+	sqlStatement := `INSERT INTO mading (name, mading, update_at) VALUES ($1, $2, $3)`
 
-	_, err := db.Exec(sqlStatement, name, mading)
+	_, err := db.Exec(sqlStatement, name, mading, time.Now())
 	if err != nil {
 		return fmt.Errorf("failed to upload image: %w", err)
 	}

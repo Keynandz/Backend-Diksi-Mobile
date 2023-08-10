@@ -1,5 +1,9 @@
 package models
 
+import (
+	"time"
+)
+
 type Akun struct {
 	Id       int    `json:"id"`
 	Username string `json:"username"`
@@ -9,7 +13,8 @@ type Akun struct {
 }
 
 type Image struct {
-    Id     int    `json:"imageid"`
-    Name   string `json:"name"`
-    Mading []byte `json:"-"`
+	Id     int       `json:"imageid"`
+	Name   string    `json:"name"`
+	Mading []byte    `json:"-"`
+	Update time.Time `json:"update_at"`
 }
