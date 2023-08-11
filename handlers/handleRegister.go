@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"golang/cmd/models"
-	"golang/cmd/repositories"
+	"golang/models"
+	"golang/repositories"
 	"net/http"
 	"regexp"
 

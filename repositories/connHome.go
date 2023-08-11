@@ -3,8 +3,8 @@ package repositories
 import (
 	"database/sql"
 	"fmt"
-	"golang/cmd/models"
-	"golang/cmd/storage"
+	"golang/models"
+	"golang/storage"
 )
 
 

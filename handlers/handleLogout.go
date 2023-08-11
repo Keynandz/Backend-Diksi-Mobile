@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"fmt"
-	"golang/cmd/session"
+	"golang/session"
 	"net/http"
 
 	"github.com/labstack/echo/v4"

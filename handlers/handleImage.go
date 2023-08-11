@@ -7,23 +7,10 @@ import (
 
 	"net/http"
 
-	"golang/cmd/repositories"
+	"golang/repositories"
 
 	"github.com/labstack/echo/v4"
 )
-
-func GetImageByID(c echo.Context) error {
-	imageID := c.Param("id")
-	image, err := repositories.GetImageByID(imageID)
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err.Error())
-	}
-
-	c.Response().Header().Set("Content-Type", "image/png")
-	c.Response().Write(image.Mading)
-	fmt.Println("Gambar Berhasil Dicomot")
-	return nil
-}
 
 func UploadImage(c echo.Context) error {
 	file, err := c.FormFile("mading")

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"golang/cmd/handlers"
-	"golang/cmd/middleware"
-	"golang/cmd/storage"
+	"golang/handlers"
+	"golang/middleware"
+	"golang/storage"
 
 	"github.com/labstack/echo/v4"
 )
@@ -11,8 +11,8 @@ import (
 func main() {
 	e := echo.New()
 	storage.InitDB()
+	storage.CreateDB()
 
-	e.GET("/images/:id", handlers.GetImageByID)
 	e.GET("/images/latest/:order", handlers.GetImageByTimestampOrder)
 	e.GET("/logout", handlers.LogoutAkun)
 	e.GET("/username", handlers.GetAkunByID)

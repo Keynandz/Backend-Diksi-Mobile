@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"golang/cmd/repositories"
-	"golang/cmd/session"
+	"golang/repositories"
+	"golang/session"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
 )

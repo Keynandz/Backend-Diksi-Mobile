@@ -2,8 +2,8 @@ package repositories
 
 import (
 	"fmt"
-	"golang/cmd/models"
-	"golang/cmd/storage"
+	"golang/models"
+	"golang/storage"
 )
 
 func CreateAkun(akun models.Akun) (models.Akun, error) {
